@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "AGENTS.md",
+    "COMMANDS.md"
+  ]
+  // AGENTS.md is the default file that enables operating the repository
+  // COMMANDS.md contains the authorized workflow templates for this Commands2Skills demo
+  // Instructions are loaded in order, allowing access to main repo commands plus local ones
+}
