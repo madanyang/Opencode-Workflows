@@ -44,6 +44,8 @@ Currently available:
   an `AGENTS.md` focused on helping end users set up, operate, and troubleshoot
   the software (not for development work). Run `/howto` right after cloning a repo
   so your assistant knows how to install, run, and support that project.
+- **`/improve:run`** (`Commands/.opencode/command/improve:run.md`): Transforms any task into a production-ready prompt using official prompt engineering guides from OpenAI GPT-5.1/5.1-Codex, Anthropic Claude 4.5, and Google Gemini 3 Pro, then executes it immediately.
+- **`/improve:save`** (`Commands/.opencode/command/improve:save.md`): Same enhancement as `/improve:run` but saves the optimized prompt as a markdown file for review and refinement before execution.
 
 ### Scripts Catalog
 
