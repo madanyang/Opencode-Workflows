@@ -4,7 +4,7 @@ A focused catalog of agent prompts and orchestration patterns designed for Openc
 
 ## Architecture Overview
 
-The `Agents/` directory now contains multiple agent collections:
+The `Agents/` directory contains specialized agent collections, complemented by universal engineering guidelines in the root `At/` directory.
 
 - **Generic/** – Canonical, globally useful agents that pair well with any Opencode repo. Install these into `~/.config/opencode/agent/` to make them universally available.
 - **Vite-React-TS-Convex-Tailwind/** – A stack-specific toolkit that bundles five specialists plus stack documentation files (`CONVEX.md`, `REACT19.md`, `TAILWIND4.md`, `TS59.MD`). Each expert agent explicitly references its matching doc so it can cite authoritative guidance when reasoning.
@@ -42,6 +42,7 @@ Each specialist reminds downstream assistants that the relevant reference docume
 2. Reference the relevant agent file in `.opencode/agent/` and review its YAML frontmatter for `mode`, guardrails, and tool constraints.
 3. Follow the instruction block exactly—these steps are tuned for autonomous execution.
 4. When using stack-specific experts, open the accompanying doc (`CONVEX.md`, etc.) if you need deeper citations or confirmation.
+5. Reference `@coding-ts` (`At/CODING-TS.MD`) for universal engineering standards and clean architecture principles.
 
 ## Relationship to Commands
 
@@ -55,27 +56,29 @@ Mix and match as needed: commands launch processes, agents keep the reasoning sh
 ## File Structure
 
 ```
-Agents/
-├── README.md
-├── Generic/
-│   └── .opencode/
-│       └── agent/
-│           ├── agent-architect.md
-│           ├── repo-navigator-creator.md
-│           ├── subagent-orchestrator.md
-│           └── openspec-orchestrator.md
-└── Vite-React-TS-Convex-Tailwind/
-    ├── CONVEX.md
-    ├── REACT19.md
-    ├── TAILWIND4.md
-    ├── TS59.MD
-    └── .opencode/
-        └── agent/
-            ├── convex-database-expert.md
-            ├── react-19-master.md
-            ├── tailwind-41-architect.md
-            ├── typescript-59-engineer.md
-            └── vite-react-convex-expert.md
+.
+├── At/                      # Global standards (@coding-ts)
+└── Agents/
+    ├── README.md
+    ├── Generic/
+    │   └── .opencode/
+    │       └── agent/
+    │           ├── agent-architect.md
+    │           ├── repo-navigator-creator.md
+    │           ├── subagent-orchestrator.md
+    │           └── openspec-orchestrator.md
+    └── Vite-React-TS-Convex-Tailwind/
+        ├── CONVEX.md
+        ├── REACT19.md
+        ├── TAILWIND4.md
+        ├── TS59.MD
+        └── .opencode/
+            └── agent/
+                ├── convex-database-expert.md
+                ├── react-19-master.md
+                ├── tailwind-41-architect.md
+                ├── typescript-59-engineer.md
+                └── vite-react-convex-expert.md
 ```
 
 ## Adding New Agents
@@ -90,4 +93,4 @@ Agents/
 - Always read the agent’s frontmatter before acting; it defines when to use the agent and any tool restrictions.
 - Respect documentation hooks—if the agent mentions a supporting `.MD` file, treat it as available context for authoritative answers.
 - Ask clarifying questions when requirements are ambiguous rather than guessing.
-- Keep responses concise, implementation-focused, and grounded in the referenced standards (OpenSpec, React 19, Tailwind 4.1, Convex, etc.).
+- Keep responses concise, implementation-focused, and grounded in the referenced standards (@coding-ts, OpenSpec, React 19, Tailwind 4.1, Convex, etc.).

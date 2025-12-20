@@ -26,6 +26,7 @@ Agents are designed for global installation in `~/.config/opencode/agent/` for r
 
 ### AI Research Tools
 - `Scripts/perplexica-cli.js` - External tool for AI search integration with proper timeout handling
+- `Scripts/.opencode/command/perplexica-search.md` - Command for AI search with smart mode selection
 - Demonstrates integration with external AI services and APIs
 
 ## Architecture Patterns
@@ -69,6 +70,9 @@ Commands.md is injected at session start, requiring models with strong:
 ## Repository Structure
 
 ```
+At/                          # Universal engineering guidelines (@coding-ts)
+├── CODING-TS.MD             # Core development principles and standards
+
 Commands2Skills/              # Template for command-based projects
 ├── COMMANDS.md              # Command index and LLM usage instructions
 ├── example-opencode.json   # Template configuration
@@ -82,20 +86,38 @@ Commands2Skills/              # Template for command-based projects
 
 Agents/                      # Agent templates catalog
 ├── README.md               # Agent overview and usage guidance
-└── .opencode/
-    └── agent/
-        ├── agent-architect.md           # Agent design/refinement
-        ├── repo-navigator-creator.md   # AGENTS.md generation
-        ├── subagent-orchestrator.md    # Multi-agent coordination
-        └── openspec-orchestrator.md    # OpenSpec workflow enforcement
+├── Generic/                # Globally useful agents
+│   └── .opencode/
+│       └── agent/
+│           ├── agent-architect.md           # Agent design/refinement
+│           ├── repo-navigator-creator.md   # AGENTS.md generation
+│           ├── subagent-orchestrator.md    # Multi-agent coordination
+│           └── openspec-orchestrator.md    # OpenSpec workflow enforcement
+└── Vite-React-TS-Convex-Tailwind/ # Stack-specific expert pack
+    ├── CONVEX.md           # Convex documentation
+    ├── REACT19.md          # React 19 documentation
+    ├── TAILWIND4.md        # Tailwind 4 documentation
+    ├── TS59.MD             # TypeScript 5.9 documentation
+    └── .opencode/
+        └── agent/
+            ├── vite-react-convex-expert.md  # Stack coordinator
+            ├── convex-database-expert.md    # Backend/DB specialist
+            ├── react-19-master.md           # RSC/Actions expert
+            ├── tailwind-41-architect.md     # Utility-first designer
+            └── typescript-59-engineer.md    # Strict TS 5.9 engineer
 
 Commands/                    # Additional command examples
 └── .opencode/
     └── command/
-        └── howto.md        # How-to command template
+        ├── howto.md        # How-to command template
+        ├── improve:run.md  # Prompt enhancement and execution
+        └── improve:save.md # Prompt enhancement and saving
 
 Scripts/                     # External utility tools
-└── perplexica-cli.js       # AI search integration tool
+├── perplexica-cli.js       # AI search integration tool
+└── .opencode/
+    └── command/
+        └── perplexica-search.md # Search workflow with citations
 ```
 
 ## Working with This Repository

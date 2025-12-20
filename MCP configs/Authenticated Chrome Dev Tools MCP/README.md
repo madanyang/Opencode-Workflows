@@ -34,11 +34,6 @@ While built for this specific setup, it is easily adaptable to standard Arch, Ub
     chmod +x chrome-devtools-mcp-debug
     ```
 
-2.  **Make it executable**:
-    ```bash
-    chmod +x chrome-devtools-mcp-debug
-    ```
-
 3.  **Verify the configuration**:
     Open the script and check the variables at the top. The defaults are set for **Chromium**:
     ```bash

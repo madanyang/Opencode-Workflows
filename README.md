@@ -26,7 +26,7 @@ Agents are organized into two collections under `Agents/`:
   - **repo-navigator-creator** – Builds lean AGENTS.md navigation guides.
   - **subagent-orchestrator** – Dispatches specialists and enforces scope isolation.
   - **openspec-orchestrator** – Enforces strict OpenSpec formatting/validation and orchestrates subagents for executing OpenSpec proposals (requires [OpenSpec](https://openspec.dev/) installed and `openspec init`).
-- **Vite-React-TS-Convex-Tailwind/** – Stack-specific experts for the modern Vite + React 19.2 + TS 5.9 + Tailwind 4.1 + Convex stack. Each agent references its matching documentation file (`CONVEX.md`, `REACT19.md`, `TAILWIND4.md`, `TS59.MD`) so it can cite authoritative answers on demand:
+- **Vite-React-TS-Convex-Tailwind/** – Stack-specific experts for the modern Vite + React 19.2 + TS 5.9 + Tailwind 4.1 + Convex stack (also supports Bun). Each agent references its matching documentation file (`CONVEX.md`, `REACT19.md`, `TAILWIND4.md`, `TS59.MD`, `CODING-TS.md`) so it can cite authoritative answers on demand:
   - **vite-react-convex-expert** – Master coordinator for the entire stack, orchestrating subagents.
   - **convex-database-expert** – Schema/query/mutation/action specialist grounded in Convex docs.
   - **react-19-master** – React 19.2 implementation reviewer focused on Server Components, Actions, and compiler rules.
@@ -53,7 +53,10 @@ The `Scripts/` directory contains utilities that commands or agents can reuse.
 - **`perplexica-cli.js`** – Node-based CLI wrapper for Perplexica’s search API
   that handles long-running requests (300s timeout), prints answers with sources,
   and exposes focus modes (web, academic, Reddit, YouTube, Wolfram) via `--mode`
-  flags. Point it at your Perplexica instance (default `http://localhost:3000/api/search`). Best used with the `/perplexica-search` command.
+  flags. Point it at your Perplexica instance (default `http://localhost:3000/api/search`).
+- **`/perplexica-search`** (`Scripts/.opencode/command/perplexica-search.md`) – A specialized 
+  command that orchestrates the CLI to perform research with smart mode selection, 
+  structured summaries, and full citations.
 
 ### @At Reference Files
 

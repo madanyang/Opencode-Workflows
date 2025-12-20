@@ -46,7 +46,7 @@ Do **not** edit `_generated/*` files; they are created and updated by `npx conve
 
 - Functions are declared with an options object:
 
-~~~ts
+```ts
 import { query } from "./_generated/server";
 import { v } from "convex/values";
 
@@ -57,7 +57,7 @@ export const example = query({
     return "Hello " + args.name;
   },
 });
-~~~
+```
 
 Rules:
 
@@ -83,7 +83,6 @@ Rules:
 ### 3.3 Function references
 
 - Convex uses **file-based routing**:
-
   - File `convex/example.ts`, export `f` (public) ⇒ `api.example.f`
   - File `convex/example.ts`, export `g` via `internalQuery` ⇒ `internal.example.g`
   - Nested file `convex/messages/access.ts`, export `h` ⇒ `api.messages.access.h` or `internal.messages.access.h`.
@@ -112,7 +111,7 @@ Rules:
 
 Example pattern:
 
-~~~ts
+```ts
 export const getGreeting = query({
   args: { name: v.string() },
   returns: v.string(),
@@ -130,7 +129,7 @@ export const logGreeting = query({
     return null;
   },
 });
-~~~
+```
 
 ---
 
@@ -168,7 +167,7 @@ Always accept IDs as `Id<"tableName">`, not raw `string`.
 
 Example sketch:
 
-~~~ts
+```ts
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
@@ -184,7 +183,7 @@ export default defineSchema({
     content: v.string(),
   }).index("by_channel", ["channelId"]),
 });
-~~~
+```
 
 Rules:
 
@@ -196,14 +195,29 @@ Schema docs: https://docs.convex.dev/database
 
 ### 6.2 Querying data via `ctx.db`
 
-Basic operations:
+Basic operations (always use explicit table names):
 
 - `ctx.db.query("table")` – start a query.
-- `ctx.db.get(id)` – get single document by ID.
+- `ctx.db.get("table", id)` – get single document by ID.
 - `ctx.db.insert("table", doc)` – insert.
-- `ctx.db.patch(id, partial)` – shallow update.
-- `ctx.db.replace(id, doc)` – replace completely.
-- `ctx.db.delete(id)` – delete one document.
+- `ctx.db.patch("table", id, partial)` – shallow update.
+- `ctx.db.replace("table", id, doc)` – replace completely.
+- `ctx.db.delete("table", id)` – delete one document.
+
+**Important**: The `@convex-dev/eslint-plugin` enforces explicit table names as the first argument for `get`, `patch`, `replace`, and `delete` operations. This improves code clarity and prevents errors.
+
+Example:
+
+```ts
+// ✅ Correct - explicit table name
+const user = await ctx.db.get("users", userId);
+await ctx.db.patch("users", userId, { name: "New Name" });
+await ctx.db.delete("users", userId);
+
+// ❌ Wrong - missing table name (will fail ESLint)
+const user = await ctx.db.get(userId);
+await ctx.db.patch(userId, { name: "New Name" });
+```
 
 Use indexes for performance:
 
@@ -247,7 +261,7 @@ Best practice: small results, index-backed, deterministic logic.
 
 - Write transactions. All reads/writes inside a mutation happen atomically.
 - Use for inserting, updating, deleting data via `ctx.db`.
-- Use `ctx.db.patch` for partial updates, `ctx.db.replace` for full replacement.
+- Use `ctx.db.patch("table", id, partial)` for partial updates, `ctx.db.replace("table", id, doc)` for full replacement.
 - Avoid heavy logic that touches thousands of documents in a single mutation; consider actions + workflow instead.
 
 ### 7.3 Actions
@@ -270,7 +284,7 @@ Action docs: https://docs.convex.dev/functions/actions
 
 Sketch:
 
-~~~ts
+```ts
 import { httpRouter } from "convex/server";
 import { httpAction } from "./_generated/server";
 
@@ -286,7 +300,7 @@ http.route({
 });
 
 export default http;
-~~~
+```
 
 Rules:
 
@@ -303,7 +317,7 @@ HTTP docs: https://docs.convex.dev/http-api
 
 Sketch:
 
-~~~ts
+```ts
 import { cronJobs } from "convex/server";
 import { internal } from "./_generated/api";
 import { internalAction } from "./_generated/server";
@@ -323,7 +337,7 @@ const doCleanup = internalAction({
 crons.interval("cleanup", { hours: 2 }, internal.crons.doCleanup, {});
 
 export default crons;
-~~~
+```
 
 Rules:
 
@@ -347,7 +361,7 @@ Key APIs:
 
 Sketch:
 
-~~~ts
+```ts
 import { query } from "./_generated/server";
 import { v } from "convex/values";
 import { Id } from "./_generated/dataModel";
@@ -364,13 +378,12 @@ export const getFileMetadata = query({
   args: { fileId: v.id("_storage") },
   returns: v.null(),
   handler: async (ctx, args) => {
-    const metadata: FileMetadata | null =
-      await ctx.db.system.get(args.fileId);
+    const metadata: FileMetadata | null = await ctx.db.system.get(args.fileId);
     console.log(metadata);
     return null;
   },
 });
-~~~
+```
 
 - Storage values are `Blob`s; convert to/from `ArrayBuffer`/`Blob` as needed.
 
@@ -387,14 +400,14 @@ Convex provides:
 
 Sketch for full-text search:
 
-~~~ts
+```ts
 const messages = await ctx.db
   .query("messages")
   .withSearchIndex("search_body", (q) =>
     q.search("body", "hello hi").eq("channel", "#general"),
   )
   .take(10);
-~~~
+```
 
 Search docs: https://docs.convex.dev/search  
 RAG guide: https://www.convex.dev/can-do/rag
@@ -437,17 +450,17 @@ For remote AI coding agents (e.g. Codex, Jules, Devin, background IDE agents):
 
 Example setup script:
 
-~~~bash
+```bash
 npm i
 CONVEX_AGENT_MODE=anonymous npx convex dev --once
-~~~
+```
 
 Or with Bun:
 
-~~~bash
+```bash
 bun i
 CONVEX_AGENT_MODE=anonymous bun x convex dev --once
-~~~
+```
 
 - This lets the agent run `convex dev` with limited privileges while iterating on code, running tests, and calling functions.
 
@@ -469,6 +482,7 @@ When generating Convex code, follow these constraints:
 8. Put schema in `convex/schema.ts` and let Convex generate `_generated/*` files.
 9. For scheduled jobs, use `cronJobs()` in `convex/crons.ts` with function references.
 10. Prefer writing “just TypeScript” helper functions for shared logic between queries/mutations/actions instead of duplicating logic.
+11. **Pagination Validators**: When using `.paginate()`, do NOT use a strict `returns` validator for the entire result object, as Convex adds internal fields (e.g., `pageStatus`). Either omit `returns` or use a loose validator (e.g. `v.any()` or just validate `page`).
 
 If in doubt:
 
