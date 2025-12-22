@@ -3,15 +3,16 @@
 A collection of Opencode-based command templates, global agent prompts, and
 workflow patterns for building sophisticated command-driven projects.
 
+![opencode-workflows](https://github.com/user-attachments/assets/72872e42-b388-45a4-9948-5063350fb381)
+
 ## Currently Included
 
 ### Commands2Skills Template
 
 A universal command template with:
-- **Command Integration Pattern**: 4-part architecture for command-to-tool interfaces
+- **Command Integration Pattern**: 4-part architecture for command-to-tool interfaces (still works, but deprecated - OC now supports skills natively)
 - **Template Structure**: Organized framework for command-based projects
 - **Documentation System**: Automated maintenance via specialized agents
-- **Model Compatibility**: Tested with GPT-5.1 series models
 - **Example Commands**: Repository exploration and mathematical calculation tools
 
 See `Commands2Skills/README.md` for implementation details, architecture overviews,
@@ -24,7 +25,7 @@ Agents are organized into two collections under `Agents/`:
 - **Generic/** – Reusable global agents that belong in `~/.config/opencode/agent/`:
   - **agent-architect** – Refines agents with research-backed prompts (best after running `opencode agent create`).
   - **repo-navigator-creator** – Builds lean AGENTS.md navigation guides.
-  - **subagent-orchestrator** – Dispatches specialists and enforces scope isolation.
+  - **subagent-orchestrator** – Dispatches specialists and enforces scope isolation. (might need some tweaks - dumber models hallucinate agents)
   - **openspec-orchestrator** – Enforces strict OpenSpec formatting/validation and orchestrates subagents for executing OpenSpec proposals (requires [OpenSpec](https://openspec.dev/) installed and `openspec init`).
 - **Vite-React-TS-Convex-Tailwind/** – Stack-specific experts for the modern Vite + React 19.2 + TS 5.9 + Tailwind 4.1 + Convex stack (also supports Bun). Each agent references its matching documentation file (`CONVEX.md`, `REACT19.md`, `TAILWIND4.md`, `TS59.MD`, `CODING-TS.md`) so it can cite authoritative answers on demand:
   - **vite-react-convex-expert** – Master coordinator for the entire stack, orchestrating subagents.
