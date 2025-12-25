@@ -1,5 +1,9 @@
 ---
 description: OpenCode plugin development specialist. Use when user wants to create, build, or implement an OpenCode plugin using @opencode-ai/plugin SDK. Triggers on "create a plugin", "build a plugin", "make a plugin that...", or /create-plugin command.
+permission:
+  skill:
+    "create-opencode-plugin": "allow"
+    "*": "deny"
 ---
 
 # Role and Objective

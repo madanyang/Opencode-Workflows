@@ -4,7 +4,9 @@
 
 ## How OpenCode Manages Plugins
 
-Users specify plugins in their config:
+**Users do NOT need to run `npm install`** - OpenCode automatically installs plugin dependencies at runtime.
+
+Users simply add the plugin name to their config:
 
 ```jsonc
 {
@@ -17,9 +19,11 @@ Users specify plugins in their config:
 
 **On launch, OpenCode:**
 
-1. Runs `bun add --force` for each plugin
+1. Runs `bun add --force` for each plugin (auto-installs)
 2. Caches pinned versions until user changes config
 3. For unpinned plugins, resolves `latest` and caches actual version
+
+This means your README should NOT include `npm install` instructions - just tell users to add the plugin to their config.
 
 ## Publishing Checklist
 
@@ -28,9 +32,15 @@ Users specify plugins in their config:
    ```
    my-plugin/
    ├── src/
-   │   └── index.ts      # Main plugin entry
+   │   └── index.ts          # Main plugin entry
+   ├── dist/                  # Built output (gitignored)
    ├── package.json
-   └── tsconfig.json
+   ├── tsconfig.json
+   ├── README.md
+   ├── LICENSE
+   ├── example-opencode.json  # Example config for users
+   ├── .gitignore
+   └── .npmignore
    ```
 
 2. **package.json:**
@@ -42,21 +52,52 @@ Users specify plugins in their config:
      "type": "module",
      "main": "dist/index.js",
      "types": "dist/index.d.ts",
-     "files": ["dist"],
-     "scripts": {
-       "build": "tsc",
-       "prepublishOnly": "npm run build"
-     },
-     "dependencies": {
-       "@opencode-ai/plugin": "latest"
+     "files": ["dist", "README.md", "LICENSE"],
+     "peerDependencies": {
+       "@opencode-ai/plugin": "^1.0.0"
      },
      "devDependencies": {
-       "typescript": "^5.0.0"
+       "@opencode-ai/plugin": "^1.0.0",
+       "@types/bun": "^1.2.0",
+       "@types/node": "^22.0.0",
+       "typescript": "^5.7.0"
+     },
+     "scripts": {
+       "clean": "rm -rf dist",
+       "build": "npm run clean && tsc",
+       "prepublishOnly": "npm run build"
      }
    }
    ```
 
-3. **Publish:**
+   Note: Use `peerDependencies` for `@opencode-ai/plugin` - OpenCode provides this at runtime.
+
+3. **example-opencode.json:**
+
+   ```json
+   {
+     "$schema": "https://opencode.ai/config.json",
+     "plugin": ["my-opencode-plugin"]
+   }
+   ```
+
+4. **README.md Installation Section:**
+
+   ```markdown
+   ## Installation
+
+   Add to your `opencode.json`:
+
+   \`\`\`json
+   {
+   "plugin": ["my-opencode-plugin"]
+   }
+   \`\`\`
+
+   OpenCode automatically installs plugin dependencies at runtime.
+   ```
+
+5. **Publish:**
    ```bash
    npm publish
    ```
