@@ -31,19 +31,19 @@ See `opencode-configurator/README.md` for full details.
 
 ## Create OpenCode Plugin
 
-The **Create OpenCode Plugin** (`create-opencode-plugin/`) enables AI-assisted plugin development for OpenCode. Simply describe what you want your plugin to do, and the AI assistant guides you through the entire process—from design to testing to publishing.
+The **Create OpenCode Plugin** (`create-opencode-plugin/`) is a workflow bundle for AI-assisted plugin development in OpenCode. Describe what you want your plugin to do, and the workflow guides you through design, testing, and publishing.
 
 Build custom tools, event handlers, tool interceptors, LLM parameter modifiers, authentication flows, and UI notifications.
 
-**Installation**: Drop the folder into your Opencode source code repo to enable the plugin creation environment.
+**Installation**: Use this bundle inside a cloned OpenCode source repo.
 
-**Usage**: Run `/create-plugin [your idea]` or just ask the assistant directly.
+**Usage**: Run `/create-plugin [your idea]`.
 
 See `create-opencode-plugin/README.md` for full details.
 
 ---
 
-## Currently Included
+## Included Packs
 
 ### Commands2Skills Template
 
