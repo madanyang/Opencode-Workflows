@@ -2,6 +2,31 @@
 
 > How to publish plugins to npm
 
+## Before Publishing - Ask the User
+
+Before creating a publishable package, **always ask the user**:
+
+1. **Package name**: What should the npm package be called?
+   - Unscoped: `opencode-my-plugin`
+   - Scoped: `@username/opencode-my-plugin`
+
+2. **npm scope/username**: If scoped, what's their npm username or org?
+
+3. **Version**: Starting version? (default: `0.1.0`)
+
+4. **License**: MIT, Apache-2.0, etc.? (default: MIT)
+
+5. **Description**: One-line description of what the plugin does
+
+Example prompt:
+
+> "Before I create the npm package, I need a few details:
+>
+> 1. What should the package name be? (e.g., `opencode-background-process` or `@yourusername/opencode-background-process`)
+> 2. What's your npm username/scope if using a scoped package?
+> 3. Starting version? (default: 0.1.0)
+> 4. License? (default: MIT)"
+
 ## How OpenCode Manages Plugins
 
 **Users do NOT need to run `npm install`** - OpenCode automatically installs plugin dependencies at runtime.
@@ -23,7 +48,7 @@ Users simply add the plugin name to their config:
 2. Caches pinned versions until user changes config
 3. For unpinned plugins, resolves `latest` and caches actual version
 
-This means your README should NOT include `npm install` instructions - just tell users to add the plugin to their config.
+This means the README should NOT include `npm install` instructions - just tell users to add the plugin to their config.
 
 ## Publishing Checklist
 
@@ -43,16 +68,19 @@ This means your README should NOT include `npm install` instructions - just tell
    └── .npmignore
    ```
 
-2. **package.json:**
+2. **package.json** (replace placeholders with user's answers):
 
    ```json
    {
-     "name": "my-opencode-plugin",
-     "version": "1.0.0",
+     "name": "<PACKAGE_NAME>",
+     "version": "<VERSION>",
+     "description": "<DESCRIPTION>",
      "type": "module",
      "main": "dist/index.js",
      "types": "dist/index.d.ts",
      "files": ["dist", "README.md", "LICENSE"],
+     "keywords": ["opencode", "opencode-plugin", "plugin"],
+     "license": "<LICENSE>",
      "peerDependencies": {
        "@opencode-ai/plugin": "^1.0.0"
      },
@@ -66,38 +94,56 @@ This means your README should NOT include `npm install` instructions - just tell
        "clean": "rm -rf dist",
        "build": "npm run clean && tsc",
        "prepublishOnly": "npm run build"
+     },
+     "publishConfig": {
+       "access": "public"
      }
    }
    ```
 
-   Note: Use `peerDependencies` for `@opencode-ai/plugin` - OpenCode provides this at runtime.
+   Notes:
+   - Use `peerDependencies` for `@opencode-ai/plugin` - OpenCode provides this at runtime
+   - Add `"publishConfig": { "access": "public" }` for scoped packages
 
 3. **example-opencode.json:**
 
    ```json
    {
      "$schema": "https://opencode.ai/config.json",
-     "plugin": ["my-opencode-plugin"]
+     "plugin": ["<PACKAGE_NAME>"]
    }
    ```
 
 4. **README.md Installation Section:**
 
-   ```markdown
+   ````markdown
    ## Installation
 
    Add to your `opencode.json`:
 
-   \`\`\`json
+   ```json
    {
-   "plugin": ["my-opencode-plugin"]
+     "plugin": ["<PACKAGE_NAME>"]
    }
-   \`\`\`
+   ```
+   ````
 
    OpenCode automatically installs plugin dependencies at runtime.
+
+   ```
+
    ```
 
 5. **Publish:**
+
+   For scoped packages (first time):
+
+   ```bash
+   npm publish --access public
+   ```
+
+   For unscoped or subsequent publishes:
+
    ```bash
    npm publish
    ```
@@ -110,9 +156,11 @@ Include an update checker that shows a toast when newer versions are available. 
 
 ## Common Mistakes
 
-| Mistake                         | Fix                          |
-| ------------------------------- | ---------------------------- |
-| Missing `type: "module"`        | Add to package.json          |
-| Not building before publish     | Add `prepublishOnly` script  |
-| Wrong main entry                | Point to compiled JS, not TS |
-| Missing @opencode-ai/plugin dep | Add as dependency            |
+| Mistake                         | Fix                                  |
+| ------------------------------- | ------------------------------------ |
+| Missing `type: "module"`        | Add to package.json                  |
+| Not building before publish     | Add `prepublishOnly` script          |
+| Wrong main entry                | Point to compiled JS, not TS         |
+| Missing @opencode-ai/plugin dep | Add as peerDependency                |
+| Scoped package 404              | Add `publishConfig.access: "public"` |
+| Assumed package name            | Always ask user for name/scope first |
