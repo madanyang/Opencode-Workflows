@@ -9,15 +9,15 @@ description: Create OpenCode plugins using @opencode-ai/plugin SDK. Use when use
 
 ## Procedure Overview
 
-| Step | Action               | Read                                                                         |
-| ---- | -------------------- | ---------------------------------------------------------------------------- |
-| 1    | Verify SDK reference | Run extract script                                                           |
-| 2    | Validate feasibility | This file                                                                    |
-| 3    | Design plugin        | `references/hooks.md`, `references/hook-patterns.md`                         |
-| 4    | Implement            | `references/tool-helper.md` (if custom tools)                                |
-| 5    | Add UI feedback      | `references/toast-notifications.md`, `references/ui-feedback.md` (if needed) |
-| 6    | Test                 | `references/testing.md`                                                      |
-| 7    | Publish              | `references/publishing.md`, `references/update-notifications.md` (if npm)    |
+| Step | Action               | Read                                                                            |
+| ---- | -------------------- | ------------------------------------------------------------------------------- |
+| 1    | Verify SDK reference | Run extract script                                                              |
+| 2    | Validate feasibility | This file                                                                       |
+| 3    | Design plugin        | `references/hooks.md`, `references/hook-patterns.md`, `references/CODING-TS.MD` |
+| 4    | Implement            | `references/tool-helper.md` (if custom tools)                                   |
+| 5    | Add UI feedback      | `references/toast-notifications.md`, `references/ui-feedback.md` (if needed)    |
+| 6    | Test                 | `references/testing.md`                                                         |
+| 7    | Publish              | `references/publishing.md`, `references/update-notifications.md` (if npm)       |
 
 ---
 
@@ -73,12 +73,20 @@ Determine if the user's concept is achievable with available hooks.
 
 **READ**: `references/hooks.md` for available hooks, `references/hook-patterns.md` for implementation patterns.
 
+**READ**: `references/CODING-TS.MD` for code architecture principles. Follow these design guidelines:
+
+- **Modular structure**: Split complex plugins into multiple focused files (types, utilities, hooks, tools)
+- **Single purpose**: Each function does ONE thing well
+- **DRY**: Extract common patterns into shared utilities immediately
+- **Small files**: Keep individual files under 150 lines - split into smaller modules as needed
+- **No monoliths**: Never put all plugin code in a single `index.ts` file
+
 ### Plugin Locations
 
-| Scope   | Path                             | Use Case                   |
-| ------- | -------------------------------- | -------------------------- |
-| Project | `.opencode/plugin/*.ts`          | Team-shared, repo-specific |
-| Global  | `~/.config/opencode/plugin/*.ts` | Personal, all projects     |
+| Scope   | Path                                        | Use Case                   |
+| ------- | ------------------------------------------- | -------------------------- |
+| Project | `.opencode/plugin/<name>/index.ts`          | Team-shared, repo-specific |
+| Global  | `~/.config/opencode/plugin/<name>/index.ts` | Personal, all projects     |
 
 ### Basic Structure
 
@@ -115,6 +123,43 @@ export const MyPlugin: Plugin = async ({ project, client, $, directory, worktree
 **READ**: `references/events.md` if using event hook (event types/properties).
 
 **READ**: `references/examples.md` for complete plugin examples.
+
+**ALWAYS READ**: `references/CODING-TS.MD` and follow modular design principles.
+
+### Plugin Structure (Non-Monolithic)
+
+For complex plugins, use a modular directory structure:
+
+```
+.opencode/plugin/my-plugin/
+├── index.ts          # Entry point, exports Plugin
+├── types.ts          # TypeScript types/interfaces
+├── utils.ts          # Shared utilities
+├── hooks/            # Hook implementations
+│   ├── event.ts
+│   └── tool-execute.ts
+└── tools/            # Custom tool definitions
+    └── my-tool.ts
+```
+
+**Example modular index.ts**:
+
+```typescript
+import type { Plugin } from "@opencode-ai/plugin"
+import { eventHooks } from "./hooks/event"
+import { toolHooks } from "./hooks/tool-execute"
+import { customTools } from "./tools"
+
+export const MyPlugin: Plugin = async ({ project, client }) => {
+  return {
+    ...eventHooks({ client }),
+    ...toolHooks({ client }),
+    tool: customTools,
+  }
+}
+```
+
+Keep each file under 150 lines. Split as complexity grows.
 
 ### Common Mistakes
 
@@ -193,6 +238,7 @@ Choose based on:
 | `events.md`               | Event types (auto-generated)      | Step 4 (if using events)  |
 | `tool-helper.md`          | Zod tool schemas (auto-generated) | Step 4 (if custom tools)  |
 | `hook-patterns.md`        | Hook implementation examples      | Step 3-4                  |
+| `CODING-TS.MD`            | Code architecture principles      | Step 3 (Design)           |
 | `examples.md`             | Complete plugin examples          | Step 4                    |
 | `toast-notifications.md`  | Toast popup API                   | Step 5 (if toasts needed) |
 | `ui-feedback.md`          | Inline message API                | Step 5 (if inline needed) |

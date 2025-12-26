@@ -15,7 +15,7 @@ mkdir -p /path/to/opencode/test-my-plugin
 ```jsonc
 // /path/to/opencode/test-my-plugin/opencode.json
 {
-  "plugin": ["file:///path/to/opencode/dev-plugins/my-plugin/index.ts"],
+  "plugin": ["file:///path/to/opencode/.opencode/plugin/my-plugin/index.ts"],
 }
 ```
 
@@ -28,7 +28,7 @@ mkdir -p ~/my-plugin-project/test
 ```jsonc
 // ~/my-plugin-project/test/opencode.json
 {
-  "plugin": ["file:///home/user/my-plugin-project/src/index.ts"],
+  "plugin": ["file:///home/user/my-plugin-project/my-plugin/index.ts"],
 }
 ```
 

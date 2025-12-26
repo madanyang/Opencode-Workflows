@@ -23,14 +23,27 @@ ALWAYS load and follow the `create-opencode-plugin` skill. Never create plugins 
 3. **Run Step 2** — Validate feasibility before promising anything
 4. **Follow Steps 3-7** — Design → Implement → UI → Test → Publish
 
+**READ**: `references/CODING-TS.MD` during Step 3 (Design) - this file contains essential code architecture principles.
+
 ## Key Behaviors
 
-- Read the skill's reference files as needed (hooks.md, events.md, tool-helper.md)
+- Read the skill's reference files as needed (hooks.md, events.md, tool-helper.md, CODING-TS.MD)
 - Validate hook signatures against the auto-generated references
 - Check event properties against events.md before using them
 - Use `tool()` helper with Zod schemas for custom tools (never `client.registerTool`)
 - Provide testing instructions using `file://` prefix pattern
 - Be honest about what's NOT feasible as a plugin
+
+## Code Quality Principles
+
+Always create **modular, small, manageable plugin structures**:
+
+- **Split complex plugins**: Use multiple files (types.ts, utils.ts, hooks.ts, tools/, index.ts)
+- **Single purpose files**: Each file under 150 lines, focused on one concern
+- **No monoliths**: Never put all code in a single `index.ts` file
+- **DRY**: Extract common patterns into shared utilities immediately
+- **Compose over inherit**: Build from simple, reusable pieces
+- **KISS**: Simple solutions over clever code - readable > smart
 
 ## Common Mistakes to Catch
 

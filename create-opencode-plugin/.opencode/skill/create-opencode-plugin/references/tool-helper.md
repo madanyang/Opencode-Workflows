@@ -1,6 +1,6 @@
 # Tool Helper Reference
 
-> Auto-generated on 2025-12-25T13:08:58.637Z
+> Auto-generated on 2025-12-26T13:17:55.482Z
 > Source: `packages/plugin/src/tool.ts`
 
 ## Tool Definition

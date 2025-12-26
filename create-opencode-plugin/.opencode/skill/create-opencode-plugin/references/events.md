@@ -1,6 +1,6 @@
 # Events Reference
 
-> Auto-generated on 2025-12-25T13:08:58.637Z
+> Auto-generated on 2025-12-26T13:17:55.481Z
 > Source: `packages/sdk/js/src/v2/gen/types.gen.ts`
 
 ## Event Union (35 types)

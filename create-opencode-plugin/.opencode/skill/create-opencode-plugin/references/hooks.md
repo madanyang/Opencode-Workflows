@@ -1,6 +1,6 @@
 # Plugin Hooks Reference
 
-> Auto-generated on 2025-12-25T13:08:58.636Z
+> Auto-generated on 2025-12-26T13:17:55.481Z
 > Source: `packages/plugin/src/index.ts`
 
 ## Plugin Function Signature
