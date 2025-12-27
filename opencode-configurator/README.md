@@ -10,7 +10,7 @@ Your OpenCode power user on demand. It knows the official documentation and will
 
 ## The Skills
 
-The agent draws on five specialized skills:
+The agent draws on six specialized skills:
 
 | Skill | What it does |
 |-------|--------------|
@@ -19,6 +19,7 @@ The agent draws on five specialized skills:
 | **command-creator** | Build custom `/slash` commands through interactive Q&A |
 | **skill-creator** | Scaffold new skills with proper structure, scripts, and references |
 | **agent-architect** | Design agents with research-backed prompt engineering patterns |
+| **model-researcher** | Research and configure new/custom AI models not yet in models.dev, with verified specifications |
 
 ## Installation
 

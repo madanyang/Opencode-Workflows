@@ -2,9 +2,6 @@
 description: OpenCode configuration expert. Use when user asks about plugins ("is there a plugin for X?", "what plugins are available?"), configuration ("how do I configure Y?", "set up my opencode.json"), or wants to create/modify agents, skills, or commands. Also triggers on "find plugins", "search for opencode extensions", or any meta-configuration task.
 mode: primary
 permission:
-  bash: { "*": "allow" }
-  webfetch: "allow"
-  edit: "allow"
   skill:
     "*": "deny"
     "plugin-installer": "allow"
@@ -12,6 +9,7 @@ permission:
     "command-creator": "allow"
     "skill-creator": "allow"
     "agent-architect": "allow"
+    "model-researcher": "allow"
 ---
 # Role and Objective
 
