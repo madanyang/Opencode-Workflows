@@ -84,7 +84,8 @@ Currently available:
   the software (not for development work). Run `/howto` right after cloning a repo
   so your assistant knows how to install, run, and support that project.
 - **`/improve:run`** (`commands/.opencode/command/improve:run.md`): Transforms any task into a production-ready prompt using official prompt engineering guides from OpenAI GPT-5.1/5.1-Codex, Anthropic Claude 4.5, and Google Gemini 3 Pro, then executes it immediately.
-- **`/improve:save`** (`commands/.opencode/command/improve:save.md`): Same enhancement as `/improve:run` but saves the optimized prompt as a markdown file for review and refinement before execution.
+- **`/improve:save`** (`commands/.opencode/command/improve:save.md`): Same enhancement as `/improve:run` but saves the optimized prompt as a markdown file for review and refinement before execution. Runs as a subagent to save context. When finished, @ the prompt file in the main session.
+- **`/refactor`** (`commands/.opencode/command/refactor.md`): Refactors code with strict modularity, file headers, and cleanup. Breaks large files into focused modules, removes slop (emojis, chatty comments, console logs), enforces DRY principles, and adds concise 2-3 sentence file headers. Targets files from current session or worst offenders (250+ lines) if unspecified.
 
 ### Scripts Catalog
 
