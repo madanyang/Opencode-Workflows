@@ -10,7 +10,7 @@ Your OpenCode power user on demand. It knows the official documentation and will
 
 ## The Skills
 
-The agent draws on six specialized skills:
+The agent draws on seven specialized skills:
 
 | Skill | What it does |
 |-------|--------------|
@@ -19,6 +19,7 @@ The agent draws on six specialized skills:
 | **command-creator** | Build custom `/slash` commands through interactive Q&A |
 | **skill-creator** | Scaffold new skills with proper structure, scripts, and references |
 | **agent-architect** | Design agents with research-backed prompt engineering patterns |
+| **mcp-installer** | Find, install, and configure Model Context Protocol (MCP) servers |
 | **model-researcher** | Research and configure new/custom AI models not yet in models.dev, with verified specifications |
 
 ## Installation
@@ -34,6 +35,7 @@ Just ask naturally:
 - *"Create a /review command that analyzes code without making changes"*
 - *"I want to build a skill for working with our internal API"*
 - *"Make me an agent for deployment that can only run git and npm commands"*
+- *"Find an MCP server for filesystem access"*
 
 The configurator figures out which skill to load and walks you through it.
 

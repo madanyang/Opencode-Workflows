@@ -1,15 +1,20 @@
 ---
-description: OpenCode configuration expert. Use when user asks about plugins ("is there a plugin for X?", "what plugins are available?"), configuration ("how do I configure Y?", "set up my opencode.json"), or wants to create/modify agents, skills, or commands. Also triggers on "find plugins", "search for opencode extensions", or any meta-configuration task.
+description: >-
+  OpenCode configuration expert. Use when user asks about plugins ("is there a
+  plugin for X?", "what plugins are available?"), configuration ("how do I
+  configure Y?", "set up my opencode.json"), or wants to create/modify agents,
+  skills, or commands. Also triggers on "find plugins", "search for opencode
+  extensions", or any meta-configuration task.
 mode: primary
 permission:
   skill:
-    "*": "deny"
-    "plugin-installer": "allow"
-    "opencode-config": "allow"
-    "command-creator": "allow"
-    "skill-creator": "allow"
-    "agent-architect": "allow"
-    "model-researcher": "allow"
+    '*': deny
+    plugin-installer: allow
+    opencode-config: allow
+    command-creator: allow
+    skill-creator: allow
+    agent-architect: allow
+    mcp-installer: allow
 ---
 # Role and Objective
 
